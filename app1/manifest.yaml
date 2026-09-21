@@ -59,20 +59,11 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/bar"
+        path: "/"
         backend:
           service:
             name: app1
             port:
               number: 80
-  - host: "*.foo.com"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/foo"
-        backend:
-          service:
-            name: service2
-            port:
-              number: 80
+  
 
