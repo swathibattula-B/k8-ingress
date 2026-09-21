@@ -43,3 +43,36 @@ spec:
     port: 80 # servie port
     targetPort: 80 # container port
 ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1
+annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: 'arn:aws:acm:us-east-1:357365535052:certificate/81d9a93d-06fc-41f4-8b44-31dfd9ef924a'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  IngressClassName: alb
+  rules:
+  - host: "app1.daws88ss.online"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/bar"
+        backend:
+          service:
+            name: app1
+            port:
+              number: 80
+  - host: "*.foo.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/foo"
+        backend:
+          service:
+            name: service2
+            port:
+              number: 80
+
